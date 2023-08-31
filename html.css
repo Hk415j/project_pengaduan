@@ -1,0 +1,10 @@
+body {
+    background-image:url(HalamanBG.png);
+    color: var(--bodyColor);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom ;
+}
+.text a{
+    color:#ffff
+}
