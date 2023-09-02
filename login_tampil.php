@@ -1,3 +1,31 @@
+<?php 
+ 
+include 'koneksi.php';
+ 
+error_reporting(0);
+ 
+session_start();
+ 
+if (isset($_SESSION['nik'])) {
+    header("Location: tampil.php");
+}
+ 
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+ 
+    $sql = "SELECT * FROM masyarakat WHERE username='$username' AND password='$password'";
+    $result = mysqli_query($koneksi, $sql);
+    if ($result->num_rows > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['nik'] = $row['nik'];
+        header("Location: tampil.php");
+    } else {
+        echo "<script>alert('username atau password Anda salah. Silahkan coba lagi!')</script>";
+    }
+}
+ 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,27 +86,27 @@
           <div id="login">   
             <h1>Welcome Back!</h1>
             
-            <form action="proses_login.php" method="post">
+            <form action="" method="post">
             
               <div class="field-wrap">
               <label>
                 Username<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input type="text" name="username" required autocomplete="off"/>
             </div>
             
             <div class="field-wrap">
               <label>
                 Password<span class="req">*</span>
               </label>
-              <input type="password"required autocomplete="off"/>
+              <input type="password"required autocomplete="off" name="password"/>
             </div>
             
             <p class="forgot"><a href="#">Forgot Password?</a></p>
             
-            <a href="Tampil.php"></a><button class="button button-block"/>Log In</button></a>
-            
-            </form>
+              <a href="Tampil.php"></a><button class="button button-block" name="submit">Log In</button></a>
+              
+              </form>
     
           </div>
           
